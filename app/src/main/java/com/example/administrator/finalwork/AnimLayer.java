@@ -31,11 +31,11 @@ public class AnimLayer extends FrameLayout {
 
 	private void initLayer(){
 	}
-
+//卡片移动
 	public void createMoveAnim(final Card from,final Card to,int fromX,int toX,int fromY,int toY){
 
 		final Card c = getCard(from.getNum());
-
+//布局
 		LayoutParams lp = new LayoutParams(Config.CARD_WIDTH, Config.CARD_WIDTH);
 		lp.leftMargin = fromX*Config.CARD_WIDTH;
 		lp.topMargin = fromY*Config.CARD_WIDTH;
@@ -44,6 +44,8 @@ public class AnimLayer extends FrameLayout {
 		if (to.getNum()<=0) {
 			to.getLabel().setVisibility(View.INVISIBLE);
 		}
+		
+//移动
 		TranslateAnimation ta = new TranslateAnimation(0, Config.CARD_WIDTH*(toX-fromX), 0, Config.CARD_WIDTH*(toY-fromY));
 		ta.setDuration(100);
 		ta.setAnimationListener(new Animation.AnimationListener() {
@@ -62,7 +64,7 @@ public class AnimLayer extends FrameLayout {
 		});
 		c.startAnimation(ta);
 	}
-
+//创建卡片
 	private Card getCard(int num){
 		Card c;
 		if (cards.size()>0) {
@@ -75,13 +77,14 @@ public class AnimLayer extends FrameLayout {
 		c.setNum(num);
 		return c;
 	}
+	//回收卡片
 	private void recycleCard(Card c){
 		c.setVisibility(View.INVISIBLE);
 		c.setAnimation(null);
 		cards.add(c);
 	}
 	private List<Card> cards = new ArrayList<Card>();
-
+//目标卡片
 	public void createScaleTo1(Card target){
 		ScaleAnimation sa = new ScaleAnimation(0.1f, 1, 0.1f, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		sa.setDuration(100);
