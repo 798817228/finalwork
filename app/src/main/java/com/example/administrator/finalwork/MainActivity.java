@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+//分数
     public void clearScore(){
         score = 0;
         showScore();
