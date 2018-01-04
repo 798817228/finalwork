@@ -25,14 +25,14 @@ public class GameView extends LinearLayout {
 
 		initGameView();
 	}
-
+//设置控件的方格数量
 	private void initGameView(){
 		setOrientation(LinearLayout.VERTICAL);
 		setBackgroundColor(0xffbbada0);
 
 
 		setOnTouchListener(new OnTouchListener() {
-
+//手势识别
 			private float startX,startY,offsetX,offsetY;
 
 			@Override
@@ -112,7 +112,7 @@ public class GameView extends LinearLayout {
 				cardsMap[x][y].setNum(0);
 			}
 		}
-
+//随机加入两个方块
 		addRandomNum();
 		addRandomNum();
 	}
@@ -128,7 +128,7 @@ public class GameView extends LinearLayout {
 				}
 			}
 		}
-
+////随机位置生成一个card
 		if (emptyPoints.size()>0) {
 
 			Point p = emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
@@ -145,12 +145,12 @@ public class GameView extends LinearLayout {
 
 		for (int y = 0; y < Config.LINES; y++) {
 			for (int x = 0; x < Config.LINES; x++) {
-
+//  //检查是否有非空卡片
 				for (int x1 = x+1; x1 < Config.LINES; x1++) {
 					if (cardsMap[x1][y].getNum()>0) {
 
 						if (cardsMap[x][y].getNum()<=0) {
-
+//当前坐标上没有格子
 							MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x1][y],cardsMap[x][y], x1, x, y, y);
 
 							cardsMap[x][y].setNum(cardsMap[x1][y].getNum());
@@ -173,10 +173,11 @@ public class GameView extends LinearLayout {
 				}
 			}
 		}
-
+//发生卡片移动，产生新的卡片
 		if (merge) {
 			addRandomNum();
 			checkComplete();
+			//判断失败
 		}
 	}
 	private void swipeRight(){
@@ -291,12 +292,13 @@ public class GameView extends LinearLayout {
 	}
 
 	private void checkComplete(){
-
+//检查游戏还能否继续
 		boolean complete = true;
 
 		ALL:
 			for (int y = 0; y < Config.LINES; y++) {
 				for (int x = 0; x < Config.LINES; x++) {
+					//1 有空的格子，2 有可以合并的卡片
 					if (cardsMap[x][y].getNum()==0||
 							(x>0&&cardsMap[x][y].equals(cardsMap[x-1][y]))||
 							(x<Config.LINES-1&&cardsMap[x][y].equals(cardsMap[x+1][y]))||
